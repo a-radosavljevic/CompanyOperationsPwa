@@ -1,0 +1,22 @@
+{
+    "short_name": "ComOps",
+    "name": "CompanyOperations PWA",
+    "icons": [
+      {
+        "src": "/images/attachment_126654181.png",
+        "type": "image/png",
+        "sizes": "1024x1024"
+      },
+      {
+        "src": "/images/attachment_126654181.png",
+        "type": "image/png",
+        "sizes": "1024x1024",
+        "purpose": "maskable"
+      }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }
+  

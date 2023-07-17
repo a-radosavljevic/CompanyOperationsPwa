@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff !important;
+  color: #000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  background-color: #fff;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal !important;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+}
+
+.form-control {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  height: 27px;
+  width: 100%;
+}
+
+
+
+.table-btn svg {
+  margin-right: 0;
+}
+
+.pagination {
+  justify-content: space-between;
+}
+
+.btn-primary {
+  background-color: #1583c3 !important;
+  border-color: #1583c3 !important;
+  border-radius: 30px !important;
+}
+
+.btn-outline-primary {
+  border-radius: 30px !important;
+}
+
+.btn-outline-danger {
+  border-radius: 30px !important;
+}
+
+.pdf-preview-container {
+  max-height: 70vh;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
+}
+
+.table-btn {
+  float: right;
+  padding: 0px 6px !important;
+  margin-left: 5px;
+  color: #1583c3 !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.pdf-preview-holder canvas {
+  width: 100vw;
+}
+
+.pdf-preview-holder>div:first-child {
+  width: 100% !important;
+  overflow: hidden !important;
+  height: auto !important;
+}
