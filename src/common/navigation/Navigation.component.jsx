@@ -26,7 +26,7 @@ const Navigation = () => {
         <div className="text-center nav-link-div">
           <Link to="/">Pretraga</Link>
           <Link to="/upload">Unos</Link>
-          <Link to="/Workflow">Procedure</Link>
+          <Link to="/Workflow">Radni zadaci</Link>
         </div>
         <div className="text-center">
           Odjavi se{" "}

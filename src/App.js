@@ -9,6 +9,7 @@ import Login from "./pages/login";
 import PublicRoute from "./validation/publicRoute";
 import ProtectedRoute from "./validation/protectedRoute";
 import Upload from "./pages/upload";
+import Workflow from "./pages/workflow";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/" element={<Search />} />
         <Route path="/preview" element={<Preview />} />
         <Route path="/upload" element={<Upload></Upload>}></Route>
+        <Route path="/workflow" element={<Workflow></Workflow>}></Route>
       </Route>
     </Routes>
   );

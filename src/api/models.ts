@@ -361,6 +361,7 @@ export class User implements IUser {
     firstName?: string | null;
     lastName?: string | null;
     password?: string | null;
+    pin?: number;
 
     constructor(data?: IUser) {
         if (data) {
@@ -425,6 +426,7 @@ export class User implements IUser {
             this.firstName = _data["firstName"] !== undefined ? _data["firstName"] : <any>null;
             this.lastName = _data["lastName"] !== undefined ? _data["lastName"] : <any>null;
             this.password = _data["password"] !== undefined ? _data["password"] : <any>null;
+            this.pin = _data["pin"] !== undefined ? _data["pin"] : <any>null;
         }
     }
 
@@ -477,6 +479,7 @@ export class User implements IUser {
         data["firstName"] = this.firstName !== undefined ? this.firstName : <any>null;
         data["lastName"] = this.lastName !== undefined ? this.lastName : <any>null;
         data["password"] = this.password !== undefined ? this.password : <any>null;
+        data["pin"] = this.pin !== undefined ? this.pin : <any>null;
         return data;
     }
 
@@ -513,4 +516,127 @@ export interface IUser {
     firstName?: string | null;
     lastName?: string | null;
     password?: string | null;
+    pin?: number;
+}
+
+export class SearchWorkflowsDTO implements ISearchWorkflowsDTO {
+    name?: string | null;
+    description?: string | null;
+    identification?: string | null;
+    status?: number | null;
+    dateFrom?: Date | null;
+    dateTo?: Date | null;
+    userId?: string | null;
+
+    constructor(data?: ISearchWorkflowsDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"] !== undefined ? _data["name"] : <any>null;
+            this.description = _data["description"] !== undefined ? _data["description"] : <any>null;
+            this.identification = _data["identification"] !== undefined ? _data["identification"] : <any>null;
+            this.status = _data["status"] !== undefined ? _data["status"] : <any>null;
+            this.dateFrom = _data["dateFrom"] ? new Date(_data["dateFrom"].toString()) : <any>null;
+            this.dateTo = _data["dateTo"] ? new Date(_data["dateTo"].toString()) : <any>null;
+            this.userId = _data["userId"] !== undefined ? _data["userId"] : <any>null;
+        }
+    }
+
+    static fromJS(data: any): SearchWorkflowsDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new SearchWorkflowsDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name !== undefined ? this.name : <any>null;
+        data["description"] = this.description !== undefined ? this.description : <any>null;
+        data["identification"] = this.identification !== undefined ? this.identification : <any>null;
+        data["status"] = this.status !== undefined ? this.status : <any>null;
+        data["dateFrom"] = this.dateFrom ? this.dateFrom.toISOString() : <any>null;
+        data["dateTo"] = this.dateTo ? this.dateTo.toISOString() : <any>null;
+        data["userId"] = this.userId !== undefined ? this.userId : <any>null;
+        return data;
+    }
+
+    clone(): SearchWorkflowsDTO {
+        const json = this.toJSON();
+        let result = new SearchWorkflowsDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ISearchWorkflowsDTO {
+    name?: string | null;
+    description?: string | null;
+    identification?: string | null;
+    status?: number | null;
+    dateFrom?: Date | null;
+    dateTo?: Date | null;
+    userId?: string | null;
+}
+
+export class WorkflowDTO implements IWorkflowDTO {
+    name?: string | null;
+    description?: string | null;
+    identification?: string | null;
+    assignedUserId?: string | null;
+
+    constructor(data?: IWorkflowDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"] !== undefined ? _data["name"] : <any>null;
+            this.description = _data["description"] !== undefined ? _data["description"] : <any>null;
+            this.identification = _data["identification"] !== undefined ? _data["identification"] : <any>null;
+            this.assignedUserId = _data["assignedUserId"] !== undefined ? _data["assignedUserId"] : <any>null;
+        }
+    }
+
+    static fromJS(data: any): WorkflowDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new WorkflowDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name !== undefined ? this.name : <any>null;
+        data["description"] = this.description !== undefined ? this.description : <any>null;
+        data["identification"] = this.identification !== undefined ? this.identification : <any>null;
+        data["assignedUserId"] = this.assignedUserId !== undefined ? this.assignedUserId : <any>null;
+        return data;
+    }
+
+    clone(): WorkflowDTO {
+        const json = this.toJSON();
+        let result = new WorkflowDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IWorkflowDTO {
+    name?: string | null;
+    description?: string | null;
+    identification?: string | null;
+    assignedUserId?: string | null;
 }
