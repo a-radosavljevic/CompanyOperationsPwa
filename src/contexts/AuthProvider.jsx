@@ -1,11 +1,13 @@
 import { useState, createContext } from 'react'
 import jwt from 'jwt-decode'
 import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useLayoutEffect(() => {
         let token = localStorage.getItem('jwt');
@@ -15,9 +17,13 @@ export const AuthProvider = ({ children }) => {
         }
     }, [])
 
+    useEffect(() => {
+        user && setLoading(false);
+    }, [user])
+
     return (
         <AuthContext.Provider value={{ user, setUser }}>
-            {children}
+            {!loading && children}
         </AuthContext.Provider>
     )
 }
