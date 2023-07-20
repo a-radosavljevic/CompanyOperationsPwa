@@ -1,11 +1,10 @@
 import { useState } from "react";
-import axios from "axios";
 import { User } from "../api/models.ts";
 import LoginContainer from "../components/login/login.component";
+import http from "../api/http.js";
 
 const Login = () => {
     const [user, setUser] = useState(new User());
-    const baseApiUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_URL : process.env.REACT_APP_DEV_API_URL;
 
     const handleEmailChange = event => {
         let userObj = user;
@@ -20,7 +19,7 @@ const Login = () => {
     };
 
     const handleSubmit = async event => {
-        let response = await axios.post(baseApiUrl + "/User/authenticate", {
+        let response = await http.post("/User/authenticate", {
             email: user.email,
             password: user.password
         })

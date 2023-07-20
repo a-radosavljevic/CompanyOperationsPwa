@@ -4,13 +4,12 @@ import FileSubmit from "../common/file-submit/fileSubmit.component";
 import UploadContainer from "../components/upload/upload.component";
 import { UploadDiv, UploadRow } from "../components/upload/upload.style";
 import DocumentData from "../components/upload/documentData.component";
-import axios from "axios";
 import { ErrorMessage, SuccessMessage } from "../utils/messager";
 import { DocumentDTO } from "../api/models.ts";
 import { getContentTypeFromExtension } from '../utils/helper-methods'
+import http from "../api/http";
 
 const Upload = () => {
-    const baseApiUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_URL : process.env.REACT_APP_DEV_API_URL;
     const [takePhotoVisible, setTakingPhotoVisible] = useState(false);
     const [uploadVisible, setUploadVisible] = useState(false);
 
@@ -39,10 +38,9 @@ const Upload = () => {
         formData.append('description', documentObj.description);
         formData.append('type', documentObj.type);
 
-        let response = await axios.post(baseApiUrl + "/Document/upload", formData, {
+        let response = await http.post("/Document/upload", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
             }
         });
         if (response.status === 200) {

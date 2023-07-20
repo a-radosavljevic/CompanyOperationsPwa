@@ -9,10 +9,10 @@ import { documentTypesList } from '../../utils/document.data'
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
+import { baseURL } from "../../api/http";
 
 const SearchContainer = ({ data, handleChange, searchDocuments, handleReset }) => {
   const formRef = useRef(null)
-  const baseApiUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_URL : process.env.REACT_APP_DEV_API_URL;
   const [selectedDateFrom, setSelectedDateFrom] = useState();
   const [selectedDateTo, setSelectedDateTo] = useState();
 
@@ -45,7 +45,7 @@ const SearchContainer = ({ data, handleChange, searchDocuments, handleReset }) =
             <Link className="btn btn-primary table-btn m-r-5" to={`/Preview?id=${row.original.id}`}>
               <FontAwesomeIcon icon={solid("search")} />
             </Link >
-            <a href={baseApiUrl + `/Document/download?id=${row.original.id}`} className="btn btn-primary table-btn" type="button">
+            <a href={baseURL + `/Document/download?id=${row.original.id}`} className="btn btn-primary table-btn" type="button">
               <FontAwesomeIcon icon={solid("download")} />
             </a>
           </>

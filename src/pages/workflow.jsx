@@ -3,12 +3,11 @@ import WorkflowContainer from "../components/workflow/WorkflowContainer.componen
 import { useRef } from "react";
 import { SearchWorkflowsDTO } from "../api/models.ts";
 import { useEffect } from "react";
-import axios from "axios";
 import { ErrorMessage } from "../utils/messager";
 import useAuth from "../hooks/useAuth";
+import http from "../api/http";
 
 const Workflow = () => {
-    const baseApiUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_URL : process.env.REACT_APP_DEV_API_URL;
     const [data, setData] = useState([]);
     const { user } = useAuth();
     const searchObject = useRef(new SearchWorkflowsDTO());
@@ -21,7 +20,7 @@ const Workflow = () => {
 
     const searchMyWorkflows = async () => {
         searchObject.current.userId = user.nameid;
-        let result = await axios.post(baseApiUrl + '/Workflow/search', searchObject.current, {
+        let result = await http.post('/Workflow/search', searchObject.current, {
             headers: {
                 'Content-Type': 'application/json-patch+json',
                 'Authorization': 'Bearer ' + localStorage.getItem('jwt')

@@ -1,8 +1,8 @@
+import { baseURL } from "../../api/http";
 import PhotoPreview from "../../components/preview/PhotoPreview.component";
 import PDFPreview from "../../components/preview/pdf-preview.component";
 
 const FileAccordion = ({ document }) => {
-    const baseApiUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_URL : process.env.REACT_APP_DEV_API_URL;
     return (
         <>
             <div className="accordion" id="accordionExample">
@@ -29,9 +29,9 @@ const FileAccordion = ({ document }) => {
                             {
                                 document.contentType === 'application/pdf'
                                     ?
-                                    <PDFPreview documentUrl={baseApiUrl + `/Document/download?id=${document.id}`} />
+                                    <PDFPreview documentUrl={baseURL + `/Document/download?id=${document.id}`} />
                                     :
-                                    <PhotoPreview photoUrl={baseApiUrl + `/Document/download?id=${document.id}`}></PhotoPreview>
+                                    <PhotoPreview photoUrl={baseURL + `/Document/download?id=${document.id}`}></PhotoPreview>
                             }
                         </div>
                     </div>

@@ -8,12 +8,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Modal from '../../common/modal/Modal.component';
+import StartWorklow from './StartWorkflow.component';
+import { SuccessMessage, ErrorMessage } from '../../utils/messager';
+import http from '../../api/http';
 
 const WorkflowContainer = ({ data, handleChange, searchMyWorkflows, handleReset }) => {
-    const baseApiUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_URL : process.env.REACT_APP_DEV_API_URL;
     const formRef = useRef(null);
     const [selectedDateFrom, setSelectedDateFrom] = useState();
     const [selectedDateTo, setSelectedDateTo] = useState();
+    const [showStartWorkflow, setShowStartWorkflow] = useState(false)
 
     useEffect(() => {
         handleChange('dateFrom', selectedDateFrom ? selectedDateFrom : null);
@@ -28,6 +32,21 @@ const WorkflowContainer = ({ data, handleChange, searchMyWorkflows, handleReset 
     const resetFilters = () => {
         formRef.current && formRef.current.reset();
         handleReset();
+    }
+
+    const handleCreatedNewWorkflow = () => {
+        searchMyWorkflows();
+        setShowStartWorkflow(false);
+    }
+
+    const rejectWorkflow = async id => {
+        let respoonse = await http.get(`/Workflow/reject?id=${id}`)
+        if (respoonse.status === 200) {
+            SuccessMessage('Radni zadatak je odbijen', '', searchMyWorkflows);
+        }
+        else {
+            ErrorMessage('Došlo je do neočekivane greške', '', () => window.location.reload());
+        }
     }
 
     const columns = [
@@ -50,7 +69,7 @@ const WorkflowContainer = ({ data, handleChange, searchMyWorkflows, handleReset 
                         <Link className="btn btn-primary table-btn m-r-5" to={`/WorkflowTask?id=${row.original.id}`}>
                             <FontAwesomeIcon icon={solid("check")} />
                         </Link>
-                        <a href={baseApiUrl + `/Workflow/reject?id=${row.original.id}`} className="btn btn-primary table-btn" type="button">
+                        <a onClick={() => rejectWorkflow(row.original.id)} className="btn btn-primary table-btn" type="button">
                             <FontAwesomeIcon icon={solid(("xmark"))} style={{ color: "#ff0000", }} />
                         </a>
                     </>
@@ -118,9 +137,12 @@ const WorkflowContainer = ({ data, handleChange, searchMyWorkflows, handleReset 
             </MainContainer>
             <MainContainer>
                 <div className="text-right">
-                    <button className="btn btn-primary" onClick={searchMyWorkflows}>Kreiraj novi zadatak</button>
+                    <button className="btn btn-primary" onClick={() => setShowStartWorkflow(true)}>Kreiraj novi zadatak</button>
                 </div>
             </MainContainer>
+            <Modal show={showStartWorkflow} title={"Novi radni zadatak"} handleClose={() => setShowStartWorkflow(false)}>
+                <StartWorklow handleCreated={handleCreatedNewWorkflow}></StartWorklow>
+            </Modal>
         </>
     )
 }
