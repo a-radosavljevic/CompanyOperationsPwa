@@ -7,7 +7,7 @@ import { WorkflowDTO } from "../../api/models.ts";
 import { Select, MenuItem } from "@mui/material";
 import http from "../../api/http";
 
-const StartWorklow = ({ documentId, handleCreated }) => {
+const StartWorklow = ({ documentId }) => {
     const [users, setUsers] = useState([]);
     const workflowObj = useRef(new WorkflowDTO())
 
@@ -27,7 +27,7 @@ const StartWorklow = ({ documentId, handleCreated }) => {
             }
         })
         if (response.status === 200) {
-            SuccessMessage("Novi radni zadatak je uspešno pokrenut", "", handleCreated);
+            SuccessMessage("Novi radni zadatak je uspešno pokrenut", "", () => window.location.href = `/workflow-task?id=${response.data.id}`);
         } else {
             ErrorMessage('Došlo je do neočekivane greške', '', () => window.location.reload());
         }

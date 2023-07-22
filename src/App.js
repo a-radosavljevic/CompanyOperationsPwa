@@ -10,6 +10,7 @@ import PublicRoute from "./validation/publicRoute";
 import ProtectedRoute from "./validation/protectedRoute";
 import Upload from "./pages/upload";
 import Workflow from "./pages/workflow";
+import WorkflowTask from "./pages/workflow-task";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/preview" element={<Preview />} />
         <Route path="/upload" element={<Upload></Upload>}></Route>
         <Route path="/workflow" element={<Workflow></Workflow>}></Route>
+        <Route path="/workflow-task" element={<WorkflowTask></WorkflowTask>}></Route>
       </Route>
     </Routes>
   );

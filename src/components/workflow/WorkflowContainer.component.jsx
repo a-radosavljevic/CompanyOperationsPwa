@@ -40,8 +40,8 @@ const WorkflowContainer = ({ data, handleChange, searchMyWorkflows, handleReset 
     }
 
     const rejectWorkflow = async id => {
-        let respoonse = await http.get(`/Workflow/reject?id=${id}`)
-        if (respoonse.status === 200) {
+        let response = await http.get(`/Workflow/reject?id=${id}`)
+        if (response.status === 200) {
             SuccessMessage('Radni zadatak je odbijen', '', searchMyWorkflows);
         }
         else {
@@ -66,7 +66,7 @@ const WorkflowContainer = ({ data, handleChange, searchMyWorkflows, handleReset 
             Cell: ({ row }) => {
                 return (
                     <>
-                        <Link className="btn btn-primary table-btn m-r-5" to={`/WorkflowTask?id=${row.original.id}`}>
+                        <Link className="btn btn-primary table-btn m-r-5" to={`/workflow-task?id=${row.original.id}`}>
                             <FontAwesomeIcon icon={solid("check")} />
                         </Link>
                         <a onClick={() => rejectWorkflow(row.original.id)} className="btn btn-primary table-btn" type="button">

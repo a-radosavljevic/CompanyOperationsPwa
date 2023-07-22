@@ -1,5 +1,6 @@
 import { baseURL } from "../../api/http";
 import { MainContainer } from "../../common/layout/Layout.style";
+import { documentTypesList } from "../../utils/document.data";
 import { convertLocalToUTCDate } from '../../utils/helper-methods';
 
 const DocumentInfo = ({ document, handleDelete, handleStartWorkTask }) => {
@@ -10,7 +11,7 @@ const DocumentInfo = ({ document, handleDelete, handleStartWorkTask }) => {
                 <label>Opis: <strong>{document.description}</strong></label>
             </div>
             <div className="form-group">
-                <label>Tip: <strong>{document.type}</strong></label>
+                <label>Tip: <strong>{documentTypesList.find(x => x.value === document.type).label}</strong></label>
             </div>
             <div className="form-group">
                 <label>Datum kreiranja: <strong>{convertLocalToUTCDate(document.creationDate)}</strong></label>
