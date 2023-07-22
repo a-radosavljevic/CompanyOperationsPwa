@@ -99,6 +99,7 @@ const WorkflowContainer = ({ data, handleChange, searchMyWorkflows, handleReset 
                             className="form-control"
                             placeholder="Status"
                             name="status"
+                            defaultValue={''}
                             onChange={handleInputChange}
                             styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                         >

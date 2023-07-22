@@ -19,6 +19,7 @@ const DocumentData = ({ handleDataChange }) => {
                     name="type"
                     className="form-control"
                     placeholder="Valuta"
+                    defaultValue={''}
                     onChange={handleDataChange}
                     styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                 >

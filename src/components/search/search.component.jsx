@@ -71,6 +71,7 @@ const SearchContainer = ({ data, handleChange, searchDocuments, handleReset }) =
               className="form-control"
               placeholder="Tip"
               name="type"
+              defaultValue={''}
               onChange={handleInputChange}
               styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
             >

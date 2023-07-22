@@ -67,6 +67,7 @@ const StartWorklow = ({ documentId, handleCreated }) => {
                         className="form-control"
                         placeholder="Radnik"
                         name="assignedUserId"
+                        defaultValue={''}
                         onChange={handleInputChange}
                         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                     >
