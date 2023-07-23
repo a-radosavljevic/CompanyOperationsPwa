@@ -14,6 +14,7 @@ const WorkflowTask = () => {
     const [searchParams] = useSearchParams();
     const [taskId, setTaskId] = useState();
     const [task, setTask] = useState();
+    const [documents, setDocuments] = useState();
     const [loading, setLoadinig] = useState(true);
     const [showFinishTaskModal, setShowFinishTaskModal] = useState(false);
 
@@ -33,11 +34,30 @@ const WorkflowTask = () => {
         taskId && fetchTask();
     }, [taskId])
 
+    useEffect(() => {
+        if (task) {
+            if (task.documentIds) {
+                fetchTaskDocuments(task.documentIds);
+            }
+            else setLoadinig(false);
+        }
+    }, [task])
+
     const fetchTask = async () => {
         let response = await http.get(`/workflow/get?id=${taskId}`);
 
         if (response.status === 200) {
             setTask(response.data);
+        }
+        else {
+            ErrorMessage('Došlo je do neočekivane greške', '', () => window.location.reload());
+        }
+    }
+
+    const fetchTaskDocuments = async ids => {
+        let response = await http.post('document/get-many', ids)
+        if (response.status === 200) {
+            setDocuments(response.data);
             setLoadinig(false);
         }
         else {
@@ -82,7 +102,7 @@ const WorkflowTask = () => {
     return <>
         <h2>Radni zadatak</h2>
         {loading && <LoadingSpinner></LoadingSpinner>}
-        {!loading && <WorkflowTaskContainter task={task} updateStatus={updateStatus} handleReject={rejectWorkflow} showFinishTaskModal={() => setShowFinishTaskModal(true)}></WorkflowTaskContainter>}
+        {!loading && <WorkflowTaskContainter task={task} documents={documents} updateStatus={updateStatus} handleReject={rejectWorkflow} showFinishTaskModal={() => setShowFinishTaskModal(true)}></WorkflowTaskContainter>}
         <Modal show={showFinishTaskModal} title={"Završavanje radnog zadatka"} handleClose={() => setShowFinishTaskModal(false)}>
             <MainContainer>
                 <div className="form-group">

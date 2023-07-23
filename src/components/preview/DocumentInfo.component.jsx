@@ -3,10 +3,10 @@ import { MainContainer } from "../../common/layout/Layout.style";
 import { documentTypesList } from "../../utils/document.data";
 import { convertLocalToUTCDate } from '../../utils/helper-methods';
 
-const DocumentInfo = ({ document, handleDelete, handleStartWorkTask }) => {
+const DocumentInfo = ({ editing, document, handleDelete, handleStartWorkTask }) => {
     return (
         <MainContainer>
-            <h2>Pregled dokumenta: {document.title}</h2>
+            {editing && <h2>Pregled dokumenta: {document.title}</h2>}
             <div className="form-group">
                 <label>Opis: <strong>{document.description}</strong></label>
             </div>
@@ -17,12 +17,16 @@ const DocumentInfo = ({ document, handleDelete, handleStartWorkTask }) => {
                 <label>Datum kreiranja: <strong>{convertLocalToUTCDate(document.creationDate)}</strong></label>
             </div>
             <div className="text-right">
-                <button className="btn btn-outline-danger" onClick={() => handleDelete(document.id)}>Obriši</button>
+                {editing && <button className="btn btn-outline-danger" onClick={() => handleDelete(document.id)}>Obriši</button>}
                 <a href={baseURL + `/Document/download?id=${document.id}`} className="btn btn-outline-primary">Preuzmi</a>
-                <button className="btn btn-primary" onClick={handleStartWorkTask}>Započni radni zadatak</button>
+                {editing && <button className="btn btn-primary" onClick={handleStartWorkTask}>Započni radni zadatak</button>}
             </div>
         </MainContainer>
     )
+}
+
+DocumentInfo.defaultProps = {
+    editing: true
 }
 
 export default DocumentInfo;

@@ -5,6 +5,10 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { SearchDocumentDTO } from "../api/models.ts";
 import http from "../api/http";
+import { baseURL } from "../api/http";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const searchObject = useRef(new SearchDocumentDTO());
@@ -35,10 +39,33 @@ const Search = () => {
     searchDocuments();
   }
 
+  const columns = [
+    {
+      Header: "Naziv",
+      accessor: "title",
+    },
+    {
+      accessor: "delete",
+      className: "two-buttons-column",
+      Cell: ({ row }) => {
+        return (
+          <>
+            <Link className="btn btn-primary table-btn m-r-5" to={`/Preview?id=${row.original.id}`}>
+              <FontAwesomeIcon icon={solid("search")} />
+            </Link >
+            <a href={baseURL + `/Document/download?id=${row.original.id}`} className="btn btn-primary table-btn" type="button">
+              <FontAwesomeIcon icon={solid("download")} />
+            </a>
+          </>
+        );
+      },
+    },
+  ];
+
   return (
     <>
       <h2>Pretraga</h2>
-      <SearchContainer data={documents} handleChange={handleChange} searchDocuments={searchDocuments} handleReset={handleReset} />
+      <SearchContainer data={documents} columns={columns} handleChange={handleChange} searchDocuments={searchDocuments} handleReset={handleReset} />
     </>
   );
 };

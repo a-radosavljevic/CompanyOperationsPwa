@@ -1,17 +1,13 @@
 import { MainContainer } from "../../common/layout/Layout.style";
 import Table from "../../common/table/Table.component";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Select, MenuItem } from "@mui/material";
 import CustomDatePicker from "../../common/custom-date-picker/CustomDatePicker.component";
-import { Link } from "react-router-dom";
 import { documentTypesList } from '../../utils/document.data'
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
-import { baseURL } from "../../api/http";
 
-const SearchContainer = ({ data, handleChange, searchDocuments, handleReset }) => {
+const SearchContainer = ({ data, columns, handleChange, searchDocuments, handleReset }) => {
   const formRef = useRef(null)
   const [selectedDateFrom, setSelectedDateFrom] = useState();
   const [selectedDateTo, setSelectedDateTo] = useState();
@@ -31,28 +27,6 @@ const SearchContainer = ({ data, handleChange, searchDocuments, handleReset }) =
     handleReset();
   }
 
-  const columns = [
-    {
-      Header: "Naziv",
-      accessor: "title",
-    },
-    {
-      accessor: "delete",
-      className: "two-buttons-column",
-      Cell: ({ row }) => {
-        return (
-          <>
-            <Link className="btn btn-primary table-btn m-r-5" to={`/Preview?id=${row.original.id}`}>
-              <FontAwesomeIcon icon={solid("search")} />
-            </Link >
-            <a href={baseURL + `/Document/download?id=${row.original.id}`} className="btn btn-primary table-btn" type="button">
-              <FontAwesomeIcon icon={solid("download")} />
-            </a>
-          </>
-        );
-      },
-    },
-  ];
   return (
     <>
       <MainContainer>

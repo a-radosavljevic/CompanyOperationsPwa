@@ -63,7 +63,7 @@ const Preview = () => {
           : (
             <>
               <DocumentInfo document={document} handleDelete={handleDelete} handleStartWorkTask={() => setShowWorkflowModal(true)}></DocumentInfo>
-              {isPreviewSupported(document.contentType) && <FileAccordion document={document}></FileAccordion>}
+              {isPreviewSupported(document.contentType) && <FileAccordion id={document.id} document={document}></FileAccordion>}
               <Modal show={showWorkflowModal} title={"Novi radni zadatak"} handleClose={() => setShowWorkflowModal((false))}>
                 <StartWorklow documentId={documentId}></StartWorklow>
               </Modal>

@@ -11,6 +11,7 @@ import ProtectedRoute from "./validation/protectedRoute";
 import Upload from "./pages/upload";
 import Workflow from "./pages/workflow";
 import WorkflowTask from "./pages/workflow-task";
+import AddDocumentsInWorkflow from './pages/add-documents-in-task'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/upload" element={<Upload></Upload>}></Route>
         <Route path="/workflow" element={<Workflow></Workflow>}></Route>
         <Route path="/workflow-task" element={<WorkflowTask></WorkflowTask>}></Route>
+        <Route path="/add-documents-in-task" element={<AddDocumentsInWorkflow></AddDocumentsInWorkflow>}></Route>
       </Route>
     </Routes>
   );

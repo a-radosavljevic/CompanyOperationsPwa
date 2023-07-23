@@ -52,6 +52,13 @@ export class SearchDocumentDTO implements ISearchDocumentDTO {
         data["dateTo"] = this.dateTo ? this.dateTo.toISOString() : <any>null;
         return data;
     }
+
+    clone(): SearchDocumentDTO {
+        const json = this.toJSON();
+        let result = new SearchDocumentDTO();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface ISearchDocumentDTO {
@@ -107,6 +114,13 @@ export class DocumentDTO implements IDocumentDTO {
         data["type"] = this.type !== undefined ? this.type : <any>null;
         return data;
     }
+
+    clone(): DocumentDTO {
+        const json = this.toJSON();
+        let result = new DocumentDTO();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IDocumentDTO {
@@ -154,6 +168,13 @@ export class NotificationDTO implements INotificationDTO {
         data["message"] = this.message !== undefined ? this.message : <any>null;
         return data;
     }
+
+    clone(): NotificationDTO {
+        const json = this.toJSON();
+        let result = new NotificationDTO();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface INotificationDTO {
@@ -197,6 +218,13 @@ export class MongoClaim implements IMongoClaim {
         data["value"] = this.value !== undefined ? this.value : <any>null;
         data["issuer"] = this.issuer !== undefined ? this.issuer : <any>null;
         return data;
+    }
+
+    clone(): MongoClaim {
+        const json = this.toJSON();
+        let result = new MongoClaim();
+        result.init(json);
+        return result;
     }
 }
 
@@ -242,6 +270,13 @@ export class UserLoginInfo implements IUserLoginInfo {
         data["providerDisplayName"] = this.providerDisplayName !== undefined ? this.providerDisplayName : <any>null;
         return data;
     }
+
+    clone(): UserLoginInfo {
+        const json = this.toJSON();
+        let result = new UserLoginInfo();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IUserLoginInfo {
@@ -285,6 +320,13 @@ export class Token implements IToken {
         data["name"] = this.name !== undefined ? this.name : <any>null;
         data["value"] = this.value !== undefined ? this.value : <any>null;
         return data;
+    }
+
+    clone(): Token {
+        const json = this.toJSON();
+        let result = new Token();
+        result.init(json);
+        return result;
     }
 }
 
@@ -440,6 +482,13 @@ export class User implements IUser {
         data["pin"] = this.pin !== undefined ? this.pin : <any>null;
         return data;
     }
+
+    clone(): User {
+        const json = this.toJSON();
+        let result = new User();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IUser {
@@ -518,6 +567,13 @@ export class SearchWorkflowsDTO implements ISearchWorkflowsDTO {
         data["userId"] = this.userId !== undefined ? this.userId : <any>null;
         return data;
     }
+
+    clone(): SearchWorkflowsDTO {
+        const json = this.toJSON();
+        let result = new SearchWorkflowsDTO();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface ISearchWorkflowsDTO {
@@ -583,6 +639,13 @@ export class WorkflowDTO implements IWorkflowDTO {
         }
         return data;
     }
+
+    clone(): WorkflowDTO {
+        const json = this.toJSON();
+        let result = new WorkflowDTO();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IWorkflowDTO {
@@ -590,5 +653,149 @@ export interface IWorkflowDTO {
     description?: string | null;
     identification?: string | null;
     assignedUserId?: string | null;
+    documentIds?: string[] | null;
+}
+
+export class Workflow implements IWorkflow {
+    id?: string | null;
+    name?: string | null;
+    description?: string | null;
+    identification?: string | null;
+    createdDate?: Date;
+    status?: number;
+    assignedUserId?: string | null;
+    comment?: string | null;
+    documentIds?: string[] | null;
+
+    constructor(data?: IWorkflow) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"] !== undefined ? _data["id"] : <any>null;
+            this.name = _data["name"] !== undefined ? _data["name"] : <any>null;
+            this.description = _data["description"] !== undefined ? _data["description"] : <any>null;
+            this.identification = _data["identification"] !== undefined ? _data["identification"] : <any>null;
+            this.createdDate = _data["createdDate"] ? new Date(_data["createdDate"].toString()) : <any>null;
+            this.status = _data["status"] !== undefined ? _data["status"] : <any>null;
+            this.assignedUserId = _data["assignedUserId"] !== undefined ? _data["assignedUserId"] : <any>null;
+            this.comment = _data["comment"] !== undefined ? _data["comment"] : <any>null;
+            if (Array.isArray(_data["documentIds"])) {
+                this.documentIds = [] as any;
+                for (let item of _data["documentIds"])
+                    this.documentIds!.push(item);
+            }
+            else {
+                this.documentIds = <any>null;
+            }
+        }
+    }
+
+    static fromJS(data: any): Workflow {
+        data = typeof data === 'object' ? data : {};
+        let result = new Workflow();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id !== undefined ? this.id : <any>null;
+        data["name"] = this.name !== undefined ? this.name : <any>null;
+        data["description"] = this.description !== undefined ? this.description : <any>null;
+        data["identification"] = this.identification !== undefined ? this.identification : <any>null;
+        data["createdDate"] = this.createdDate ? this.createdDate.toISOString() : <any>null;
+        data["status"] = this.status !== undefined ? this.status : <any>null;
+        data["assignedUserId"] = this.assignedUserId !== undefined ? this.assignedUserId : <any>null;
+        data["comment"] = this.comment !== undefined ? this.comment : <any>null;
+        if (Array.isArray(this.documentIds)) {
+            data["documentIds"] = [];
+            for (let item of this.documentIds)
+                data["documentIds"].push(item);
+        }
+        return data;
+    }
+
+    clone(): Workflow {
+        const json = this.toJSON();
+        let result = new Workflow();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IWorkflow {
+    id?: string | null;
+    name?: string | null;
+    description?: string | null;
+    identification?: string | null;
+    createdDate?: Date;
+    status?: number;
+    assignedUserId?: string | null;
+    comment?: string | null;
+    documentIds?: string[] | null;
+}
+
+export class AddWorkflowDocumentsDTO implements IAddWorkflowDocumentsDTO {
+    workflowId?: string | null;
+    documentIds?: string[] | null;
+
+    constructor(data?: IAddWorkflowDocumentsDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.workflowId = _data["workflowId"] !== undefined ? _data["workflowId"] : <any>null;
+            if (Array.isArray(_data["documentIds"])) {
+                this.documentIds = [] as any;
+                for (let item of _data["documentIds"])
+                    this.documentIds!.push(item);
+            }
+            else {
+                this.documentIds = <any>null;
+            }
+        }
+    }
+
+    static fromJS(data: any): AddWorkflowDocumentsDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddWorkflowDocumentsDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["workflowId"] = this.workflowId !== undefined ? this.workflowId : <any>null;
+        if (Array.isArray(this.documentIds)) {
+            data["documentIds"] = [];
+            for (let item of this.documentIds)
+                data["documentIds"].push(item);
+        }
+        return data;
+    }
+
+    clone(): AddWorkflowDocumentsDTO {
+        const json = this.toJSON();
+        let result = new AddWorkflowDocumentsDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IAddWorkflowDocumentsDTO {
+    workflowId?: string | null;
     documentIds?: string[] | null;
 }
