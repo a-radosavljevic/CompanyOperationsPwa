@@ -42,7 +42,7 @@ export const SideMenu = styled.div`
   .nav-link-div {
     display: flex;
     flex-direction: column;
-    a:first-child {
+    a:not(:last-child) {
       border-bottom: 1px solid #ddd;
     }
     a {

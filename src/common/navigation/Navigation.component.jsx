@@ -2,16 +2,25 @@ import { Link } from "react-router-dom";
 import { NavigationTop, SideMenu } from "./Navigation.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const Navigation = () => {
+  const location = useLocation();
   const [isActive, setIsActive] = useState(false);
+
   const toggleActive = () => {
     setIsActive(!isActive);
   };
-  function goBack() {
+
+  const goBack = () => {
     window.history.back();
   }
+
+  useEffect(() => {
+    setIsActive(false)
+  }, [location])
+
   return (
     <>
       <NavigationTop>
