@@ -1,22 +1,30 @@
 {
-    "short_name": "ComOps",
-    "name": "CompanyOperations PWA",
-    "icons": [
-      {
-        "src": "/images/attachment_126654181.png",
-        "type": "image/png",
-        "sizes": "1024x1024"
-      },
-      {
-        "src": "/images/attachment_126654181.png",
-        "type": "image/png",
-        "sizes": "1024x1024",
-        "purpose": "maskable"
-      }
-    ],
-    "start_url": ".",
-    "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
-  }
-  
+  "short_name": "ComOps",
+  "name": "CompanyOperations PWA",
+  "description": "Efikasno upravljajte poslovanjem kompanije pomoću ComOps-a, ​​moćne progresivne veb aplikacije za pojednostavljenje poslovnih procesa.",
+  "icons": [
+    {
+      "src": "/images/attachment_126654181.png",
+      "type": "image/png",
+      "sizes": "1024x1024"
+    },
+    {
+      "src": "/images/attachment_126654181.png",
+      "type": "image/png",
+      "sizes": "1024x1024",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "sr-Latn",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "categories": [
+    "Business",
+    "Productivity"
+  ],
+  "prefer_related_applications": false
+}
