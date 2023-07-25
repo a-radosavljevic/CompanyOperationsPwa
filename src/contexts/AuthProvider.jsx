@@ -15,14 +15,21 @@ export const AuthProvider = ({ children }) => {
             const user = jwt(token);
             setUser(user);
         }
+        else setLoading(false)
     }, [])
 
     useEffect(() => {
         user && setLoading(false);
     }, [user])
 
+    const logout = () => {
+        localStorage.removeItem('jwt');
+        setUser(null);
+        window.location.href = '/';
+    }
+
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, logout }}>
             {!loading && children}
         </AuthContext.Provider>
     )

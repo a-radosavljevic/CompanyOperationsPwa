@@ -4,8 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import * as serviceWorker from '../../service-worker-registration.js'
 
 const Navigation = () => {
+  const { logout } = useAuth();
   const location = useLocation();
   const [isActive, setIsActive] = useState(false);
 
@@ -15,6 +18,11 @@ const Navigation = () => {
 
   const goBack = () => {
     window.history.back();
+  }
+
+  const signOut = () => {
+    serviceWorker.unregister();
+    logout();
   }
 
   useEffect(() => {
@@ -37,7 +45,7 @@ const Navigation = () => {
           <Link to="/upload">Unos</Link>
           <Link to="/Workflow">Radni zadaci</Link>
         </div>
-        <div className="text-center">
+        <div onClick={signOut} className="text-center">
           Odjavi se{" "}
           <FontAwesomeIcon onClick={toggleActive} icon={solid("sign-out")} />
         </div>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { User } from "../api/models.ts";
 import LoginContainer from "../components/login/login.component";
 import http from "../api/http.js";
+import * as serviceWorker from '../service-worker-registration.js'
 
 const Login = () => {
     const [user, setUser] = useState(new User());
@@ -18,7 +19,7 @@ const Login = () => {
         setUser(userObj);
     };
 
-    const handleSubmit = async event => {
+    const handleSubmit = async () => {
         let response = await http.post("/User/authenticate", {
             email: user.email,
             password: user.password
@@ -26,9 +27,9 @@ const Login = () => {
         console.log(response.data.token, response.data.user);
 
         localStorage.setItem('jwt', response.data.token);
+        serviceWorker.register();
+        serviceWorker.requestPermission();
         window.location.href = "/"
-        //serviceWorker.register();
-        //serviceWorker.requestPermission();
     };
 
     return (
