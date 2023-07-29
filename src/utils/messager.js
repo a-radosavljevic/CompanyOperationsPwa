@@ -7,7 +7,7 @@ export function SuccessMessage(message, title, callback) {
         text: message,
         showConfirmButton: true
     }).then((result) => {
-        if (result.isConfirmed) {
+        if (result.isConfirmed && callback) {
             callback()
         }
     })
@@ -19,7 +19,7 @@ export function ErrorMessage(message, title, callback) {
         title: title ? title : 'Greška',
         text: message
     }).then((result) => {
-        if (result.isConfirmed) {
+        if (result.isConfirmed && callback) {
             callback()
         }
     })

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { User } from "../api/models.ts";
 import LoginContainer from "../components/login/login.component";
 import http from "../api/http.js";
-import * as serviceWorker from '../service-worker-registration.js'
+import { ErrorMessage } from '../utils/messager.js'
 
 const Login = () => {
     const [user, setUser] = useState(new User());
@@ -20,16 +20,23 @@ const Login = () => {
     };
 
     const handleSubmit = async () => {
-        let response = await http.post("/User/authenticate", {
-            email: user.email,
-            password: user.password
-        })
-        console.log(response.data.token, response.data.user);
-
-        localStorage.setItem('jwt', response.data.token);
-        serviceWorker.register();
-        serviceWorker.requestPermission();
-        window.location.href = "/"
+        try {
+            let response = await http.post("/User/authenticate", {
+                email: user.email,
+                password: user.password
+            })
+            if (response.status === 200) {
+                console.log(response.data.token, response.data.user);
+                localStorage.setItem('jwt', response.data.token);
+                window.location.href = "/"
+            }
+            else {
+                ErrorMessage('Imejl adresa ili lozinka nisu ispravni, pokušajte ponovo', '');
+            }
+        }
+        catch (err) {
+            ErrorMessage('Imejl adresa ili lozinka nisu ispravni, pokušajte ponovo', '');
+        }
     };
 
     return (

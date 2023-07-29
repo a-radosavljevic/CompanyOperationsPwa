@@ -7,7 +7,10 @@ const http = axios.create({
 
 http.interceptors.request.use(
     (config) => {
-        config.headers['Autorization'] = `Bearer ${localStorage.getItem('jwt')}`
+        const jwtToken = localStorage.getItem('jwt');
+        if (jwtToken) {
+            config.headers['Authorization'] = `Bearer ${jwtToken}`
+        }
         return config;
     },
     error => Promise.reject(error)

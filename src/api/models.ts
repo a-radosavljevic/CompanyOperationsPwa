@@ -132,6 +132,61 @@ export interface IDocumentDTO {
     type?: number | null;
 }
 
+export class SubscriptionDTO implements ISubscriptionDTO {
+    userId?: string | null;
+    endpoint?: string | null;
+    p256dh?: string | null;
+    auth?: string | null;
+
+    constructor(data?: ISubscriptionDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.userId = _data["userId"] !== undefined ? _data["userId"] : <any>null;
+            this.endpoint = _data["endpoint"] !== undefined ? _data["endpoint"] : <any>null;
+            this.p256dh = _data["p256dh"] !== undefined ? _data["p256dh"] : <any>null;
+            this.auth = _data["auth"] !== undefined ? _data["auth"] : <any>null;
+        }
+    }
+
+    static fromJS(data: any): SubscriptionDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new SubscriptionDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId !== undefined ? this.userId : <any>null;
+        data["endpoint"] = this.endpoint !== undefined ? this.endpoint : <any>null;
+        data["p256dh"] = this.p256dh !== undefined ? this.p256dh : <any>null;
+        data["auth"] = this.auth !== undefined ? this.auth : <any>null;
+        return data;
+    }
+
+    clone(): SubscriptionDTO {
+        const json = this.toJSON();
+        let result = new SubscriptionDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ISubscriptionDTO {
+    userId?: string | null;
+    endpoint?: string | null;
+    p256dh?: string | null;
+    auth?: string | null;
+}
+
 export class NotificationDTO implements INotificationDTO {
     userId?: string | null;
     title?: string | null;

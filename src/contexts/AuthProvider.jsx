@@ -2,6 +2,7 @@ import { useState, createContext } from 'react'
 import jwt from 'jwt-decode'
 import { useLayoutEffect } from 'react';
 import { useEffect } from 'react';
+import * as serviceWorker from '../service-worker-registration.js'
 
 const AuthContext = createContext(null);
 
@@ -19,7 +20,10 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        user && setLoading(false);
+        if (user) {
+            setLoading(false);
+            serviceWorker.register(user.nameid);
+        }
     }, [user])
 
     const logout = () => {

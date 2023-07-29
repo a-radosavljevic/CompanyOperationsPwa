@@ -2,6 +2,7 @@ const CACHE_NAME = "version-1";
 const urlsToCache = ["index.html", "offline.html"];
 
 const self = this;
+
 // Install SW
 self.addEventListener("install", (event) => {
   self.skipWaiting();
@@ -41,4 +42,50 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("push", (event) => {
+  if (event.data) {
+    let notification = JSON.parse(event.data.text());
+    event.waitUntil(
+      notify(notification.Type, notification.Title, notification.Body, notification.Data, self.registration)
+    )
+  }
 });
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const url = event.notification.data.url;
+  const notificationType = event.notification.data.type;
+  if (url) {
+    event.waitUntil(
+      clients.openWindow(getNotificationActionURLByType(notificationType, url))
+    )
+  }
+});
+
+function notify(type, title, message, data, serviceWorker) {
+  let options = {
+    title: 'Company Operations',
+    body: message,
+    icon: '',
+    vibrate: true,
+    silent: false,
+    data: {
+      type: type,
+      url: data
+    }
+  };
+  serviceWorker.showNotification(title, options);
+}
+
+function getNotificationActionURLByType(type, data) {
+  switch (type) {
+    case NotificationType.Document:
+      return `/preview?id=${data}`;
+    case NotificationType.Workflow:
+      return `/workflow-task?id=${data}`;
+  }
+}
+
+const NotificationType = {
+  Document: 1,
+  Workflow: 2
+}
