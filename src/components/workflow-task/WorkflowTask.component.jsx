@@ -1,4 +1,5 @@
 import Accordion from "../../common/accordidon/Accordion.component";
+import ButtonWithPIN from "../../common/button-with-pin/ButtonWithPIN.component";
 import { MainContainer } from "../../common/layout/Layout.style";
 import useAuth from "../../hooks/useAuth";
 import WorkflowDocument from './WorkflowDocument.component'
@@ -17,8 +18,8 @@ const WorkflowTaskContainter = ({ task, documents, updateStatus, handleReject, s
                             task.status === 1 && <div className="text-inline">
                                 <span style={{ color: 'red' }}>Prijavite se kako biste započeli rad na zadatku</span>
                                 <div>
-                                    <button className="btn btn-outline-danger" onClick={handleReject}>Odbij</button>
-                                    <button className="btn btn-primary" onClick={() => updateStatus(2)}>Prihvati</button>
+                                    <ButtonWithPIN className="btn btn-outline-danger" onClick={handleReject}>Odbij</ButtonWithPIN>
+                                    <ButtonWithPIN className="btn btn-primary" onClick={() => updateStatus(2)}>Prihvati</ButtonWithPIN>
                                 </div>
                             </div>
                         }

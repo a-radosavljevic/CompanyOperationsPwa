@@ -1,4 +1,5 @@
 import { baseURL } from "../../api/http";
+import ButtonWithPIN from "../../common/button-with-pin/ButtonWithPIN.component";
 import { MainContainer } from "../../common/layout/Layout.style";
 import { documentTypesList } from "../../utils/document.data";
 import { convertLocalToUTCDate } from '../../utils/helper-methods';
@@ -17,7 +18,7 @@ const DocumentInfo = ({ editing, document, handleDelete, handleStartWorkTask }) 
                 <label>Datum kreiranja: <strong>{convertLocalToUTCDate(document.creationDate)}</strong></label>
             </div>
             <div className="text-right">
-                {editing && <button className="btn btn-outline-danger" onClick={() => handleDelete(document.id)}>Obriši</button>}
+                {editing && <ButtonWithPIN className="btn btn-outline-danger" onClick={() => handleDelete(document.id)}>Obriši</ButtonWithPIN>}
                 <a href={baseURL + `/Document/download?id=${document.id}`} className="btn btn-outline-primary">Preuzmi</a>
                 {editing && <button className="btn btn-primary" onClick={handleStartWorkTask}>Započni radni zadatak</button>}
             </div>

@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { WorkflowDTO } from "../../api/models.ts";
 import { Select, MenuItem } from "@mui/material";
 import http from "../../api/http";
+import ButtonWithPIN from '../../common/button-with-pin/ButtonWithPIN.component'
 
 const StartWorklow = ({ documentId }) => {
     const [users, setUsers] = useState([]);
@@ -80,7 +81,7 @@ const StartWorklow = ({ documentId }) => {
             </MainContainer>
             <MainContainer>
                 <div className="text-right">
-                    <button className="btn btn-primary" onClick={startWorkflow}>Kreiraj zadatak</button>
+                    <ButtonWithPIN className="btn btn-primary" onClick={startWorkflow}>Kreiraj zadatak</ButtonWithPIN>
                 </div>
             </MainContainer>
         </>

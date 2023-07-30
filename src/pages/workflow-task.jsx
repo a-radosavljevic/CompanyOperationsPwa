@@ -9,6 +9,7 @@ import LoadingSpinner from '../common/loader/Loader.component';
 import Modal from '../common/modal/Modal.component'
 import { MainContainer } from '../common/layout/Layout.style';
 import { useRef } from 'react';
+import ButtonWithPIN from '../common/button-with-pin/ButtonWithPIN.component';
 
 const WorkflowTask = () => {
     const [searchParams] = useSearchParams();
@@ -112,7 +113,7 @@ const WorkflowTask = () => {
             </MainContainer>
             <MainContainer>
                 <div className="text-right">
-                    <button className="btn btn-primary" onClick={finishWorkflow}>Završi zadatak</button>
+                    <ButtonWithPIN className="btn btn-primary" onClick={finishWorkflow}>Završi zadatak</ButtonWithPIN>
                 </div>
             </MainContainer>
         </Modal>

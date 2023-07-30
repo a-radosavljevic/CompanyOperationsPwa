@@ -2,8 +2,10 @@ import { useState } from "react";
 import { MainContainer } from "../layout/Layout.style";
 import { PinInputForm, SquareInput } from "./PIN.style";
 import { useRef } from "react";
+import http from "../../api/http";
+import { ErrorMessage } from "../../utils/messager";
 
-const PIN = ({ length }) => {
+const PIN = ({ length, submitAction }) => {
     const [pin, setPin] = useState('');
     const inputRefs = useRef([]);
 
@@ -21,9 +23,18 @@ const PIN = ({ length }) => {
         setPin(newPin.join(''));
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        console.log("PIN: ", pin);
+
+        try {
+            let response = await http.get(`/user/check-pin?pin=${parseInt(pin)}`);
+            if (response.status === 200) {
+                submitAction();
+            }
+        }
+        catch (err) {
+            ErrorMessage("Uneti PIN kod nije validan", '');
+        }
     }
 
     return <>
