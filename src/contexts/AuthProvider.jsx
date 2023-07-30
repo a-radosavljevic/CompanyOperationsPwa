@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
         let token = localStorage.getItem('jwt');
         if (token) {
             const user = jwt(token);
-            setUser(user);
+            setUser(user.sub);
         }
         else setLoading(false)
     }, [])
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (user) {
             setLoading(false);
-            serviceWorker.register(user.nameid);
+            serviceWorker.register(user);
         }
     }, [user])
 

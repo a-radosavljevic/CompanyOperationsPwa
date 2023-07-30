@@ -19,11 +19,10 @@ const Workflow = () => {
     const handleChange = (name, value) => searchObject.current[name] = value;
 
     const searchMyWorkflows = async () => {
-        searchObject.current.userId = user.nameid;
+        searchObject.current.userId = user;
         let result = await http.post('/Workflow/search', searchObject.current, {
             headers: {
-                'Content-Type': 'application/json-patch+json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+                'Content-Type': 'application/json-patch+json'
             }
         });
 

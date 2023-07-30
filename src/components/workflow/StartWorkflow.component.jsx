@@ -22,8 +22,7 @@ const StartWorklow = ({ documentId }) => {
     const startWorkflow = async () => {
         let response = await http.post(`/workflow/create`, workflowObj.current, {
             headers: {
-                'Content-Type': 'application/json-patch+json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+                'Content-Type': 'application/json-patch+json'
             }
         })
         if (response.status === 200) {

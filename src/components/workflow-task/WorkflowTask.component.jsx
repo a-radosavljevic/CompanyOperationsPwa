@@ -11,7 +11,7 @@ const WorkflowTaskContainter = ({ task, documents, updateStatus, handleReject, s
                 <p className="h2">{task.name}</p>
                 <p className="lead">Opis radnog zadatka: {task.description}</p>
                 <hr className="my-4" />
-                {user.nameid === task.assignedUserId &&
+                {user === task.assignedUserId &&
                     (<>
                         {
                             task.status === 1 && <div className="text-inline">

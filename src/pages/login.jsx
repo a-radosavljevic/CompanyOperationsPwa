@@ -26,8 +26,8 @@ const Login = () => {
                 password: user.password
             })
             if (response.status === 200) {
-                console.log(response.data.token, response.data.user);
-                localStorage.setItem('jwt', response.data.token);
+                console.log(response.data.accessToken, response.data.userId);
+                localStorage.setItem('jwt', response.data.accessToken);
                 window.location.href = "/"
             }
             else {
@@ -35,6 +35,7 @@ const Login = () => {
             }
         }
         catch (err) {
+            console.log(err);
             ErrorMessage('Imejl adresa ili lozinka nisu ispravni, pokušajte ponovo', '');
         }
     };
