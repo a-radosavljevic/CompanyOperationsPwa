@@ -11,11 +11,13 @@ const Camera = ({ handleTakingPhoto }) => {
     useEffect(() => {
         startCamera();
         return () => {
-            // zatvaranje strimaova za kameru nakon gasenja komponente
-            stream && stream.getTracks().forEach(function (track) {
-                track.stop();
-            });
-            cameraRef.current.srcObject = null;
+            if (cameraRef.current) {
+                // zatvaranje strimaova za kameru nakon gasenja komponente
+                stream && stream.getTracks().forEach(function (track) {
+                    track.stop();
+                });
+                cameraRef.current.srcObject = null;
+            }
         }
     }, [])
 
@@ -38,7 +40,9 @@ const Camera = ({ handleTakingPhoto }) => {
     const takePhoto = () => {
         if (cameraRef.current && canvasRef.current) {
             const context = canvasRef.current.getContext('2d');
-            context.drawImage(cameraRef.current, 0, 0, 640, 480);
+            canvasRef.current.width = cameraRef.current.videoWidth;
+            canvasRef.current.height = cameraRef.current.videoHeight;
+            context.drawImage(cameraRef.current, 0, 0, cameraRef.current.videoWidth, cameraRef.current.videoHeight);
             const photoDataUrl = canvasRef.current.toDataURL('image/jpg');
             const photo = dataURLToByteArray(photoDataUrl);
             setPreview(true);
