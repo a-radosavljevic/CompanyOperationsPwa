@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (user) {
             setLoading(false);
-            serviceWorker.register(user);
+            serviceWorker.requestPermissionAndSubscribe(user);
         }
     }, [user])
 

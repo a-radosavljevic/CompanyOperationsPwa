@@ -8,7 +8,7 @@ self.addEventListener("install", (event) => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("Opened cache");
+      console.log("Keš memorija otvorena");
       return cache.addAll(urlsToCache);
     })
   );
@@ -26,6 +26,7 @@ self.addEventListener("fetch", (event) => {
 // Activate the SW
 
 self.addEventListener("activate", (event) => {
+  console.log('Service worker je aktiviran')
   const cacheWhitelist = [];
   cacheWhitelist.push(CACHE_NAME);
   event.waitUntil(
@@ -41,15 +42,6 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-self.addEventListener("push", (event) => {
-  if (event.data) {
-    let notification = JSON.parse(event.data.text());
-    event.waitUntil(
-      notify(notification.Type, notification.Title, notification.Body, notification.Data, self.registration)
-    )
-  }
-});
-
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
   const url = event.notification.data.url;
@@ -61,27 +53,44 @@ self.addEventListener("notificationclick", (event) => {
   }
 });
 
-function notify(type, title, message, data, serviceWorker) {
+self.addEventListener("push", (event) => {
+  if (event.data) {
+    let notification = JSON.parse(event.data.text());
+    event.waitUntil(
+      notify(notification.Type, notification.Title, notification.Body, notification.Data)
+    )
+  }
+});
+
+function notify(type, title, message, data) {
+  const origin = self.location.origin;
+
   let options = {
     title: 'Company Operations',
     body: message,
-    icon: '',
+    icon: `${origin}/images/attachment_126654181.png`,
+    badge: `${origin}/images/attachment_126654181.png`,
     vibrate: true,
     silent: false,
     data: {
       type: type,
       url: data
-    }
+    },
+    actions: [
+      { action: 'open', title: 'Prikaži' }
+    ]
   };
-  serviceWorker.showNotification(title, options);
+  self.registration.showNotification(title, options);
 }
 
 function getNotificationActionURLByType(type, data) {
+  const origin = self.location.origin;
+
   switch (type) {
     case NotificationType.Document:
-      return `/preview?id=${data}`;
+      return `${origin}/preview?id=${data}`;
     case NotificationType.Workflow:
-      return `/workflow-task?id=${data}`;
+      return `${origin}/workflow-task?id=${data}`;
   }
 }
 

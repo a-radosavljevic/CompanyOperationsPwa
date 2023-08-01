@@ -5,12 +5,11 @@ import { urlBase64ToUint8Array } from './utils/helper-methods.js'
 
 const webPushPublicKey = process.env.REACT_APP_WEB_PUSH_PUBLIC_KEY;
 
-export function register(userId) {
+export function register() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js')
       .then(async reg => {
-        console.log("Service worker registred");
-        requestPermissionAndSubscribe(reg, userId)
+        console.log("Service worker registrovan");
       }).catch(err => {
         alert('Neuspešna inicijalizacija sistema za obaveštavanje');
         console.log(err);
@@ -28,20 +27,30 @@ export function unregister() {
   }
 }
 
-export async function requestPermissionAndSubscribe(registration, userId) {
+export async function requestPermissionAndSubscribe(userId) {
   const permission = await window.Notification.requestPermission();
 
   if (permission === 'denied') {
-    throw new Error('Permission not granted for Notification!');
+    unregister();
+    throw new Error('Korisnik nije odobrio rad sistema obaveštavanja');
   }
   else if (permission === 'default') {
-    setTimeout(async () => await requestPermissionAndSubscribe(registration, userId), 1000)
+    setTimeout(async () => await requestPermissionAndSubscribe(userId), 1000)
   }
   else {
-    console.log("User granted permission");
-    let applicationServerKey = urlBase64ToUint8Array(webPushPublicKey);
-    const subscription = await registration.pushManager.subscribe({ applicationServerKey, userVisibleOnly: true });
-    subscribeToServer(subscription, userId)
+    console.log("Korisnik je odobrio rad sistema obaveštavanja");
+    navigator.serviceWorker.getRegistrations().then(async registrations => {
+      for (let registration of registrations) {
+        if (registration.active && registration.active.state === 'activated') {
+          let applicationServerKey = urlBase64ToUint8Array(webPushPublicKey);
+          const subscription = await registration.pushManager.subscribe({ applicationServerKey, userVisibleOnly: true });
+          subscribeToServer(subscription, userId)
+        }
+        else {
+          setTimeout(async () => await requestPermissionAndSubscribe(userId), 1000)
+        }
+      }
+    });
   }
 }
 
@@ -56,4 +65,5 @@ async function subscribeToServer(subscription, userId) {
   if (response.status !== 200) {
     throw new Error("Neuspešno prijavljivanje na sistem obaveštavanja");
   }
+  console.log('Korisnik povezan za izvor obaveštenja');
 }
