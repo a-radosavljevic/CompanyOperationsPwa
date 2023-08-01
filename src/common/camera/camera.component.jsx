@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRef } from "react"
 import { dataURLToByteArray } from '../../utils/helper-methods'
+import TextDanger from "../text-danger/TextDanger.component";
 
-const Camera = ({ handleTakingPhoto }) => {
+const Camera = ({ handleTakingPhoto, errors }) => {
     const [preview, setPreview] = useState(false)
     const [stream, setStream] = useState(false)
     const cameraRef = useRef(null);
@@ -63,6 +64,7 @@ const Camera = ({ handleTakingPhoto }) => {
             <canvas ref={canvasRef} style={{ display: preview ? 'block' : 'none' }}></canvas>
             {!preview && <button className="btn btn-outline-primary" onClick={takePhoto}>Fotografiši</button>}
             {preview && <button className="btn btn-outline-primary" onClick={startCamera}>Fotografiši ponovo</button>}
+            <TextDanger message={errors?.content}></TextDanger>
         </>
     )
 }

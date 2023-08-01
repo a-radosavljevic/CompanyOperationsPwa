@@ -5,8 +5,9 @@ import { getFileExtension } from "../../utils/helper-methods";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { byteArrayToDataURL, getContentTypeFromExtension } from '../../utils/helper-methods'
+import TextDanger from "../text-danger/TextDanger.component";
 
-const FileSubmit = ({ handleUpload }) => {
+const FileSubmit = ({ handleUpload, errors }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedFileExtension, setSelectedFileExtension] = useState('');
     const [fileData, setFileData] = useState('');
@@ -53,6 +54,7 @@ const FileSubmit = ({ handleUpload }) => {
                         )}
                 </FileSubmitLabel>
             </FileSubmitContainer>
+            <TextDanger message={errors?.content}></TextDanger>
         </MainContainer>
     );
 }

@@ -3,9 +3,17 @@ import { User } from "../api/models.ts";
 import LoginContainer from "../components/login/login.component";
 import http from "../api/http.js";
 import { ErrorMessage } from '../utils/messager.js'
+import Joi from 'joi-browser';
+import { validateModel } from "../validation/input-validations.js";
 
 const Login = () => {
     const [user, setUser] = useState(new User());
+    const [errors, setErrors] = useState();
+
+    const validationSchema = {
+        email: Joi.string().max(250).email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+        password: Joi.string().max(250).required()
+    }
 
     const handleEmailChange = event => {
         let userObj = user;
@@ -20,6 +28,13 @@ const Login = () => {
     };
 
     const handleSubmit = async () => {
+        const validation = validateModel(user, validationSchema);
+
+        if (validation) {
+            setErrors(validation);
+            return;
+        }
+
         try {
             let response = await http.post("/User/authenticate", {
                 email: user.email,
@@ -41,7 +56,7 @@ const Login = () => {
     };
 
     return (
-        <LoginContainer handleEmailChange={handleEmailChange} handlePasswordChange={handlePasswordChange} handleSubmit={handleSubmit} />
+        <LoginContainer handleEmailChange={handleEmailChange} handlePasswordChange={handlePasswordChange} handleSubmit={handleSubmit} errors={errors} />
     )
 }
 

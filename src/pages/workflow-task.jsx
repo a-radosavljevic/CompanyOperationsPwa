@@ -10,6 +10,9 @@ import Modal from '../common/modal/Modal.component'
 import { MainContainer } from '../common/layout/Layout.style';
 import { useRef } from 'react';
 import ButtonWithPIN from '../common/button-with-pin/ButtonWithPIN.component';
+import { validateModel } from '../validation/input-validations';
+import Joi from 'joi-browser';
+import TextDanger from '../common/text-danger/TextDanger.component';
 
 const WorkflowTask = () => {
     const [searchParams] = useSearchParams();
@@ -18,6 +21,7 @@ const WorkflowTask = () => {
     const [documents, setDocuments] = useState();
     const [loading, setLoadinig] = useState(true);
     const [showFinishTaskModal, setShowFinishTaskModal] = useState(false);
+    const [errors, setErrors] = useState();
 
     const commentRef = useRef(null)
 
@@ -89,6 +93,12 @@ const WorkflowTask = () => {
     }
 
     const finishWorkflow = async e => {
+        const validation = validateModel({ comment: commentRef.current.value }, { comment: Joi.string().required() })
+        if (validation) {
+            setErrors(validation);
+            return;
+        }
+
         let taskObj = task;
         taskObj.comment = commentRef.current.value;
         taskObj.status = 3;
@@ -109,6 +119,7 @@ const WorkflowTask = () => {
                 <div className="form-group">
                     <label>Zaključak rada na zadatku</label>
                     <textarea className="form-control" ref={commentRef} rows="20" style={{ height: '300px' }}></textarea>
+                    <TextDanger message={errors?.comment}></TextDanger>
                 </div>
             </MainContainer>
             <MainContainer>
