@@ -11,9 +11,14 @@ export const FileSubmitLabel = styled.label`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 300px;
-  height: 200px;
+  width: 100%;
+  height: 30vh;
   border: 2px dashed #ccc;
   border-radius: 5px;
   cursor: pointer;
+
+  iframe {
+  height: 100%;
+  width: 100%;
+}
 `;

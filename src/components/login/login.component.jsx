@@ -13,7 +13,7 @@ const LoginContainer = ({ handleEmailChange, handlePasswordChange, handleSubmit,
             <input type="password" className="form-control" id="passwordInput" onChange={handlePasswordChange} required />
             <TextDanger message={errors?.password} />
         </div>
-        <button className="btn btn-primary" onClick={handleSubmit}>Prijavljivanje</button>
+        <button className="btn btn-primary block-btn" onClick={handleSubmit}>Prijavljivanje</button>
     </MainContainer>
 )
 

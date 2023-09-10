@@ -13,12 +13,12 @@ register();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <ErrorBoundary>
-        < AuthProvider >
+        <AuthProvider >
             <BrowserRouter>
                 <Routes>
                     <Route path="/*" element={<App />}></Route>
                 </Routes>
             </BrowserRouter>
-        </AuthProvider >
+        </AuthProvider>
     </ErrorBoundary>
 );

@@ -16,7 +16,6 @@ import AddDocumentsInWorkflow from './pages/add-documents-in-task'
 const App = () => {
   return (
     <Routes>
-      <Route path="/login" element={<PublicRoute><Login></Login></PublicRoute>}></Route>
       <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route path="/" element={<Search />} />
         <Route path="/preview" element={<Preview />} />

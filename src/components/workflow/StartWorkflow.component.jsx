@@ -103,9 +103,9 @@ const StartWorklow = ({ documentId }) => {
                     </>}
                 </div>
             </MainContainer>
-            <MainContainer>
+            <MainContainer className="no-p-top">
                 <div className="text-right">
-                    <ButtonWithPIN className="btn btn-primary" onClick={startWorkflow}>Kreiraj zadatak</ButtonWithPIN>
+                    <ButtonWithPIN className="btn btn-primary block-btn" onClick={startWorkflow}>Kreiraj zadatak</ButtonWithPIN>
                 </div>
             </MainContainer>
         </>

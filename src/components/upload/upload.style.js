@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const UploadRow = styled.div`
     display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
 `;
 
 export const UploadDiv = styled.div`
     flex: 1;
-    padding: 20px;
-    margin-right: 20px;
-    margin-left: 20px;
 `
 
 export const UploadText = styled.span`

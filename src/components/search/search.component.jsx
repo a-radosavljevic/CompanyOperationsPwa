@@ -29,7 +29,7 @@ const SearchContainer = ({ data, columns, handleChange, searchDocuments, handleR
 
   return (
     <>
-      <MainContainer>
+      <MainContainer className="slide-up-anim">
         <form ref={formRef}>
           <div className="form-group">
             <label>Naziv</label>
@@ -73,13 +73,13 @@ const SearchContainer = ({ data, columns, handleChange, searchDocuments, handleR
             />
           </div>
         </form>
-        <div className="text-right">
-          <button className="btn btn-outline-primary" onClick={resetFilters}>Poništi pretragu</button>
+        <div className="flex-btn-div-2">
+          <button className="btn btn-secondary" onClick={resetFilters}>Poništi pretragu</button>
           <button className="btn btn-primary" onClick={searchDocuments}>Pretraga</button>
         </div>
       </MainContainer>
+      <MainContainer className="slide-up-anim">
       <hr />
-      <MainContainer>
         <Table columns={columns} data={data} />
       </MainContainer>
     </>

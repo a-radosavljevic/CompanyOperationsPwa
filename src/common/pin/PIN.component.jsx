@@ -56,7 +56,7 @@ const PIN = ({ length, submitAction }) => {
         </MainContainer>
         <MainContainer>
             <div className="text-right">
-                <button className="btn btn-primary" onClick={handleSubmit}>Potvrdi</button>
+                <button className="btn btn-primary block-btn" onClick={handleSubmit}>Potvrdi</button>
             </div>
         </MainContainer>
     </>

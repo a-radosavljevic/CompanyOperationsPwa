@@ -9,6 +9,7 @@ import { baseURL } from "../api/http";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Link } from "react-router-dom";
+import { MainContainer } from "../common/layout/Layout.style";
 
 const Search = () => {
   const searchObject = useRef(new SearchDocumentDTO());
@@ -16,28 +17,29 @@ const Search = () => {
 
   useEffect(() => {
     searchDocuments();
-  }, [])
+  }, []);
 
-  const handleChange = (name, value) => searchObject.current[name] = value;
+  const handleChange = (name, value) => (searchObject.current[name] = value);
 
   const searchDocuments = async () => {
-    let response = await http.post('/Document/search', searchObject.current, {
+    let response = await http.post("/Document/search", searchObject.current, {
       headers: {
-        'Content-Type': 'application/json-patch+json',
-      }
-    })
+        "Content-Type": "application/json-patch+json",
+      },
+    });
     if (response.status === 200) {
       setDocuments(response.data);
+    } else {
+      ErrorMessage("Došlo je do neočekivane greške", "", () =>
+        window.location.reload()
+      );
     }
-    else {
-      ErrorMessage('Došlo je do neočekivane greške', '', () => window.location.reload());
-    }
-  }
+  };
 
   const handleReset = () => {
     searchObject.current = new SearchDocumentDTO();
     searchDocuments();
-  }
+  };
 
   const columns = [
     {
@@ -50,10 +52,17 @@ const Search = () => {
       Cell: ({ row }) => {
         return (
           <>
-            <Link className="btn btn-primary table-btn m-r-5" to={`/Preview?id=${row.original.id}`}>
+            <Link
+              className="btn btn-primary table-btn m-r-5"
+              to={`/Preview?id=${row.original.id}`}
+            >
               <FontAwesomeIcon icon={solid("search")} />
-            </Link >
-            <a href={baseURL + `/Document/download?id=${row.original.id}`} className="btn btn-primary table-btn" type="button">
+            </Link>
+            <a
+              href={baseURL + `/Document/download?id=${row.original.id}`}
+              className="btn btn-primary table-btn"
+              type="button"
+            >
               <FontAwesomeIcon icon={solid("download")} />
             </a>
           </>
@@ -64,8 +73,16 @@ const Search = () => {
 
   return (
     <>
-      <h2>Pretraga</h2>
-      <SearchContainer data={documents} columns={columns} handleChange={handleChange} searchDocuments={searchDocuments} handleReset={handleReset} />
+      <MainContainer className="slide-up-anim">
+        <h2>Pretraga</h2>
+      </MainContainer>
+      <SearchContainer
+        data={documents}
+        columns={columns}
+        handleChange={handleChange}
+        searchDocuments={searchDocuments}
+        handleReset={handleReset}
+      />
     </>
   );
 };

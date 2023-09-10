@@ -27,9 +27,12 @@ export const SideMenu = styled.div`
   width: 50vw;
   background-color: #fff;
   z-index: 1;
+  box-shadow: 1px 0px 5px 2px rgba(0,0,0,0.3);
   transition: all 0.2s ease-in-out;
   border-left: 1px solid #ddd;
+  opacity: 0;
   &.active {
+    opacity: 1;
     right: 0;
     transition: all 0.2s ease-in-out;
   }

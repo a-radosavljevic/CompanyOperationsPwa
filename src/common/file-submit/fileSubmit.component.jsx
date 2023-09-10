@@ -4,59 +4,69 @@ import { FileSubmitContainer, FileSubmitLabel } from "./fileSubmit.style";
 import { getFileExtension } from "../../utils/helper-methods";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { byteArrayToDataURL, getContentTypeFromExtension } from '../../utils/helper-methods'
+import {
+  byteArrayToDataURL,
+  getContentTypeFromExtension,
+} from "../../utils/helper-methods";
 import TextDanger from "../text-danger/TextDanger.component";
 
 const FileSubmit = ({ handleUpload, errors }) => {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [selectedFileExtension, setSelectedFileExtension] = useState('');
-    const [fileData, setFileData] = useState('');
-    const [previewFile, setPreviewFile] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFileExtension, setSelectedFileExtension] = useState("");
+  const [fileData, setFileData] = useState("");
+  const [previewFile, setPreviewFile] = useState("");
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setSelectedFile(file);
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
 
-        const reader = new FileReader();
-        reader.onload = () => {
-            const data = reader.result;
-            setFileData(data);
-        };
-        const fileExtension = getFileExtension(file.name);
-        setSelectedFileExtension(fileExtension);
-
-        reader.readAsArrayBuffer(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      const data = reader.result;
+      setFileData(data);
     };
+    const fileExtension = getFileExtension(file.name);
+    setSelectedFileExtension(fileExtension);
 
-    useEffect(() => {
-        if (fileData) {
-            handleUpload(fileData, selectedFileExtension);
-            setPreviewFile(byteArrayToDataURL(fileData, getContentTypeFromExtension(selectedFileExtension)))
-        }
-    }, [fileData])
+    reader.readAsArrayBuffer(file);
+  };
 
-    return (
-        <MainContainer>
-            <FileSubmitContainer>
-                <FileSubmitLabel>
-                    {previewFile ? (
-                        <>
-                            <p>Učitani fajl: {selectedFile.name}</p>
-                            <iframe title={selectedFile.name} src={previewFile} alt="File Preview" />
-                        </>
-                    )
-                        :
-                        (
-                            <>
-                                <input type="file" onChange={handleFileChange} hidden />
-                                <FontAwesomeIcon icon={solid("upload")} />
-                            </>
-                        )}
-                </FileSubmitLabel>
-            </FileSubmitContainer>
-            <TextDanger message={errors?.content}></TextDanger>
-        </MainContainer>
-    );
-}
+  useEffect(() => {
+    if (fileData) {
+      handleUpload(fileData, selectedFileExtension);
+      setPreviewFile(
+        byteArrayToDataURL(
+          fileData,
+          getContentTypeFromExtension(selectedFileExtension)
+        )
+      );
+    }
+  }, [fileData]);
+
+  return (
+    <>
+      <FileSubmitContainer className="slide-up-anim">
+        <FileSubmitLabel>
+          {previewFile ? (
+            <>
+              <p>Učitani fajl: {selectedFile.name}</p>
+              <iframe
+                title={selectedFile.name}
+                src={previewFile}
+                alt="File Preview"
+              />
+            </>
+          ) : (
+            <>
+              <input type="file" onChange={handleFileChange} hidden />
+              <FontAwesomeIcon icon={solid("upload")} />
+            </>
+          )}
+        </FileSubmitLabel>
+      </FileSubmitContainer>
+      <TextDanger message={errors?.content}></TextDanger>
+    </>
+  );
+};
 
 export default FileSubmit;
