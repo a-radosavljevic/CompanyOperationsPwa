@@ -73,6 +73,7 @@ const Camera = ({ handleTakingPhoto, errors }) => {
           style={{ display: preview ? "none" : "block" }}
           autoPlay
           playsInline
+          width="100%"
         ></video>
         <canvas
           ref={canvasRef}
