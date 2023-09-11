@@ -29,7 +29,7 @@ const Camera = ({ handleTakingPhoto, errors }) => {
   const startCamera = async () => {
     setPreview(false);
     try {
-      setStream(await navigator.mediaDevices.getUserMedia({ video: true }));
+      setStream(await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }));
     } catch (err) {
       console.error(err);
     }
