@@ -51,6 +51,6 @@ export function getFileExtension(fileName) {
 }
 
 export function convertLocalToUTCDate(date) {
-    if (date) return moment(new Date(date)).format('DD.MM.YYYY HH:mm');
+    if (date) return moment(new Date(date)).format('DD.MM.YYYY');
     else return '';
 }
