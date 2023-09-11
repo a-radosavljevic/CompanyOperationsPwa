@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/CompanyOperationsPwa/static/css/main.d33c9043.css",
+    "main.js": "/CompanyOperationsPwa/static/js/main.aa5cf147.js",
+    "index.html": "/CompanyOperationsPwa/index.html",
+    "main.d33c9043.css.map": "/CompanyOperationsPwa/static/css/main.d33c9043.css.map",
+    "main.aa5cf147.js.map": "/CompanyOperationsPwa/static/js/main.aa5cf147.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d33c9043.css",
+    "static/js/main.aa5cf147.js"
+  ]
+}
