@@ -2,7 +2,6 @@
   "name": "company-operations-pwa",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://a-radosavljevic.github.io/CompanyOperationsPwa",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
